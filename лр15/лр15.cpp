@@ -1,72 +1,47 @@
-﻿#include <iostream>
-#include <vector>
-#include <algorithm> 
-#include <set> 
+#include <iostream>
 
 using namespace std;
 
-
-vector<int> findDivisors(int n) {
-    vector<int> divisors;
-    set<int> usedDivisors; 
-
-    for (int i = 1; i * i <= n; ++i) {
-        if (n % i == 0) {
-            if (!usedDivisors.count(i)) { 
-                divisors.push_back(i);
-                divisors.push_back(n / i);
-                usedDivisors.insert(i);
-                usedDivisors.insert(n / i);
+void sortDescending(int arr[], int size) {
+    for (int i = 0; i < size - 1; i++) {
+        for (int j = i + 1; j < size; j++) {
+            if (arr[i] < arr[j]) {
+            
+                int temp = arr[i];
+                arr[i] = arr[j];
+                arr[j] = temp;
             }
         }
     }
-
-    return divisors;
-}
-
-
-void stdSort(vector<int>& arr) {
-    std::sort(arr.begin(), arr.end()); 
-}
-
-void setIntersectionSort(vector<int>& arr) {
-    set<int> sortedDivisors(arr.begin(), arr.end()); 
-    vector<int> temp; 
-
-    for (auto it = sortedDivisors.rbegin(); it != sortedDivisors.rend(); ++it) {
-        temp.push_back(*it); 
-    }
-
-    arr = temp; 
 }
 
 int main() {
     int n;
 
-    cout << "Enter an integer: ";
+    cout << "Enter an integer n: ";
     cin >> n;
 
-    vector<int> divisors = findDivisors(n);
+    int divisors[n];
+    int divisor_count = 0;
 
-    cout << "Divisors of a number " << n << ": ";
-    for (int divisor : divisors) {
-        cout << divisor << " ";
+    for (int i = 1; i <= n; i++) {
+        if (n % i == 0) {
+            divisors[divisor_count] = i;
+            divisor_count++;
+        }
+    }
+
+    cout << "Array of divisors: ";
+    for (int i = 0; i < divisor_count; i++) {
+        cout << divisors[i] << " ";
     }
     cout << endl;
 
-    stdSort(divisors);
+    sortDescending(divisors, divisor_count);
 
-    cout << "Sorted dividers : ";
-    for (int divisor : divisors) {
-        cout << divisor << " ";
-    }
-    cout << endl;
-
-    setIntersectionSort(divisors);
-
-    cout << "Sorted intersections: ";
-    for (int divisor : divisors) {
-        cout << divisor << " ";
+    cout << "Sorted array in descending order: ";
+    for (int i = 0; i < divisor_count; i++) {
+        cout << divisors[i] << " ";
     }
     cout << endl;
 
